@@ -2,14 +2,18 @@
 - name: Basic system setup
   hosts: all
   become: true
+  vars:
+    user_name: "sheko"
+    package_state: "latest"
+    security_only: true
   tasks:
     - name: update all packages
       ansible.builtin.package:
         name: *
-        state: latest
-        security: true
+        state: "{{ package_state }}"
+        security: "{{ security_onyl }}"
    - name: create new user
      ansible.builtin.user:
-       name: Sheko
+       name: "{{ user_name }}"
        state: present
        create_home: true
